@@ -46,16 +46,39 @@ void CreateAndDisplayMatrix(int[,] matrix) // Method to create matrix
 void Rotate90Degrees(int[,] matrix)
 {
 
-    for (int i = 0; i < size / 2; i++) // Since it's a square matrix column and row size will be the same
-    {
-        for (int j = i; j < size - 1 - i; j++)
-        {
-            int temp = matrix[i, j];
+    //for (int i = 0; i < size / 2; i++) // Since it's a square matrix column and row size will be the same
+    //{
+    //    for (int j = i; j < size - 1 - i; j++)
+    //    {
+    //        int temp = matrix[i, j];
 
-            matrix[i, j] = matrix[size - 1 - j, i];
-            matrix[size - 1 - j, i] = matrix[size - 1 - i, size - 1 - j];
-            matrix[size - 1 - i, size - 1 - j] = matrix[j, size - 1 - i];
-            matrix[j, size - 1 - i] = temp;
+    //        matrix[i, j] = matrix[size - 1 - j, i];
+    //        matrix[size - 1 - j, i] = matrix[size - 1 - i, size - 1 - j];
+    //        matrix[size - 1 - i, size - 1 - j] = matrix[j, size - 1 - i];
+    //        matrix[j, size - 1 - i] = temp;
+    //    }
+    //}
+
+    //Alt method: Transpose and then reverse columns
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = i + 1; j < size; j++)
+        {
+            (matrix[i, j], matrix[j, i]) = (matrix[j, i], matrix[i, j]); // Tuple
+        }
+    }
+
+    for (int i = 0; i < size; i++)
+    {
+        int left = 0;
+        int right = size - 1;
+        while (left < right)
+        {
+            int temp = matrix[i, left];
+            matrix[i, left] = matrix[i, right];
+            matrix[i, right] = temp;
+            left++;
+            right--;
         }
     }
 
